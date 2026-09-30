@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const SUPPORTED_LANGUAGES = ['en', 'ja', 'ko', 'zh-Hant'];
   const articles = Array.from(document.querySelectorAll('main > article[lang]'));
+  const SUPPORTED_LANGUAGES = articles.map(article => article.lang);
   const buttons = Array.from(document.querySelectorAll('[data-language]'));
 
   function getBrowserLanguage() {
@@ -27,6 +27,7 @@
       button.setAttribute('aria-pressed', String(button.dataset.language === language));
     }
     document.documentElement.lang = language;
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     const heading = document.getElementById(`title-${language}`);
     if (heading) document.title = `${heading.textContent} | Catch the Capybara`;
   }
